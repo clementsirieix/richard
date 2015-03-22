@@ -1,0 +1,82 @@
+@import "_richard-variables.scss";
+
+// @return the "primary" hue
+@function get-primary-hue() {@return $md-primary-hue;}
+// @return the lighter hue
+@function get-light-hue() {@return $md-light-hue;}
+// @return the darker hue
+@function get-dark-hue() {@return $md-light-hue;}
+// @return the "primary" accent
+@function get-primary-accent() {@return $md-primary-accent;}
+// @return the lighter accent
+@function get-light-accent() {@return $md-light-accent;}
+// @return the hues
+@function get-hues() {@return $md-hues-list;}
+// @return the accents
+@function get-accents() {@return $md-accents-list;}
+/* Return a text color depending on the bg color
+   @param $color of color type
+   @return a text color*/
+@function get-text-color($color) {
+	@if(lightness($color) < 60%) {
+		@return nth($md-text-color, 2);
+	}@else {
+		@return nth($md-text-color, 1);
+	}
+}
+
+/*	generate palette 
+	@param $color a "string" or not
+	@param $variante the variante numher
+	@warn color not defined
+	@end the variables are set*/
+@mixin generate-palette($color: red, $variante: 1) {
+	@if index($md-color-names, unquote($color)) == false {
+		@warn "color not defined";
+	}
+	@if($variante > length(nth($md-combinaison, index($md-color-names, unquote($color)))) or $variante < 1) {$variante: 1;}
+	$md-primary-hue: nth(nth($md-colors, index($md-color-names, unquote($color))), 1);
+	$md-light-hue: nth(nth($md-colors, index($md-color-names, unquote($color))), 2);
+	$md-dark-hue: nth(nth($md-colors, index($md-color-names, unquote($color))), 3);	
+	$md-light-accent: nth(nth($md-accents, index($md-color-names, nth(nth($md-combinaison, index($md-color-names, unquote($color))), $variante) )), 1);
+	$md-primary-accent: nth(nth($md-accents, index($md-color-names, nth(nth($md-combinaison, index($md-color-names, unquote($color))), $variante) )), 2);
+	$md-hues-list: $md-primary-hue;
+	$md-hues-list:append($md-hues-list, $md-light-hue);
+	$md-hues-list:append($md-hues-list, $md-dark-hue);
+	$md-accents-list: $md-primary-accent;
+	$md-accents-list:append($md-accents-list, $md-light-accent);
+}
+
+/*richard script
+  @param the hue or accent number
+  @param type hue or accent
+  @param the primary color for generating a palette
+  @param the variante of accent palette you want
+  @warn if a palette was not generated
+  @warn if a palette was not generated and the primary color has not been chosen
+  @end set the bg-color and the font-color
+  @if not generated a palette is now set*/
+@mixin richard($color: 1, $type: hue, $primary-palette-color: null, $variante: null) {
+	@if $md-hues-list == null {
+		@warn "A palette was not generated";
+		@if $primary-palette-color == null and $variante != null {
+			@include generate-palette(red, $variante);
+			@warn "No primary-palette-color chosen";
+		}
+		@if $primary-palette-color != null {
+			@include generate-palette($primary-palette-color);
+		}
+		@include generate-palette();
+	}
+	@if ((unquote($type) == hue) or ($color > length($md-hues-list)) or ($color < 1)) and ($color int) {
+		background-color: nth($md-hues-list, $color);
+ 		color: get-text-color(nth($md-hues-list, $color));
+	}
+	@else if ((unquote($type) == accent) or ($color > length($md-accents-list)) or ($color < 1)) and ($color int) {
+		background-color: nth($md-accents-list, $color);
+ 		color: get-text-color(nth($md-accents-list, $color));
+	}
+	@else {
+		@include richard(1, hue);
+	}
+}

@@ -1,0 +1,17 @@
+{
+  "name": "richard",
+  "version": "1.0",
+  "authors": [
+    "clebe"
+  ],
+  "description": "Material Color Palette Generator",
+  "main": "_richard.scss",
+  "keywords": [
+    "Material",
+    "Design",
+    "Color",
+    "Palette",
+    "Richard"
+  ],
+  "license": "WTFPL"
+}
