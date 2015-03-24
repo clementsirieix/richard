@@ -12,21 +12,13 @@ Or by downloading the .scss files.
 ## How to use ?
 
 1. Import the script
-```
-@import "_richard.scss";
-```
+``@import "_richard.scss";``
 2. Create a new palette
-```
-@include generate-palette($color);
-```
+``@include generate-palette($color);``
 Or
-```
-@include generate-palette($color, $variant);
-```
+``@include generate-palette($color, $variant);``
 3. Include in your scss
-```
-@include richard($colorNumber, $type);
-```
+``@include richard($colorNumber, $type);``
 
 ## Values
 
