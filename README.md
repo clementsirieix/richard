@@ -23,7 +23,7 @@ Or
 ## Values
 
 * $color 
-The color name set by Google : [google.com/design](http://www.google.com/design/spec/style/color.html/)
+The color name set by Google : [google.com/design](http://www.google.com/design/spec/style/color.html)
 
 * $variant
 The number for accessing different variants (vanilla from 1 to 3)
