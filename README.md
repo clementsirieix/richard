@@ -36,4 +36,4 @@ For the selecting the primary hue or accent ``1``, the lighter hue or accent ``2
 
 ## See more
 
-Link to an article about the script: [not available for now](http://www.google.com) (French).
+Link to an article about the script: [nomdeco.de](http://nomdeco.de/article/front-end/6-material-design-palette-de-couleurs) (French).
